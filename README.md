@@ -117,8 +117,8 @@ six==1.16.0
 ~~~
 
 9. Gitignore File.
-* *en*. Create a **gitignore** file for it should ignore certain files and not track them.
-* *es*. Crear un archivo **gitignore para que ignore ciertos archivos y no los rastree.
+* *en*. Create a **.gitignore** file to ignore specific files and prevent them from being tracked.
+* *es*. Crear un archivo **gitignore para ignorar archivos espesificos y evitar que sean rastreados.
 
 ~~~py
 # in cosole
@@ -131,8 +131,8 @@ six==1.16.0
 
 
 10. Modularization
-* *en*. We modularized the application, with modules communicating from **main.py** to **utils.py** via an **import** statement in **main**. 
-* *es*. Modularisamos la aplicación, con módulos que se comunican desde **main.py** a **utils.py** a travéz de una declaración **import** en **main**.
+* *en*. We modularized the application by using import statements to allow communication between modules. For example, in **main.py** we imported functions from **utils.py**. 
+* *es*. Modularisamos la aplicación utilizando sentencias de importación para permitir la comunicación entre módulos. Por ejemplo, en **main.py** importamos funciones de **utils.py**.
 
 ~~~py
 # in main.py file 
@@ -156,25 +156,111 @@ def get_population():
 ['a', 'b', 'c'] [1, 2, 3]
 ~~~
 
+11. Reader Function
+* *en*. Create a function in a module to read a **CSV** file.
+* *es*. Crear una función en un módulo para leer un archivo **CSV**.
+
+~~~py
+# in read_csv.py file
+
+import csv  
+
+def read_csv(path):  
+    with open(path, 'r') as csvfile:  
+        reader = csv.reader(csvfile, delimiter=',')
+        for row in reader:
+            print('....' * 5)
+            print(row) 
 
 
-~~~sh
+if __name__ == '__main__': 
+    read_csv('./data.csv')
+~~~
+
+12. **read_csv.py** Module.
+* *en*. Modify the function to read a **CSV** file and transform its contents into a **dictionary**.
+* *es*. Modifique la función para leer un archivo **CSV** y transformar su contenido en un **diccionario**.
+
+~~~py
+import csv  
+
+def read_csv(path):  
+    with open(path, 'r') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+        header = next(reader)
+
+        data = [] 
+        
+        for row in reader:
+            iter = zip(header, row) # zip - union to tuples
+            country_dict = {key: value for key, value in iter} # dictionary comprehension
+            data.append(country_dict)
+        
+        return data
+
+if __name__ == '__main__':  
+    data = read_csv('./data.csv') # CSV file rute
+    print(data[0]) # call to index 0 
+~~~
+
+13. **charts.py** Module.
+* *en*. Define a function to create **charts**.
+* *es*. Define una función para crear gráficas.
+
+~~~py
+# in charts.py file
+
+import matplotlib.pyplot as plot 
+
+def generate_bar_chart(labels, values):
+    fig, ax = plot.subplots()
+    ax.bar(labels, values)
+    plot.show()
+
+def generate_pie_chart(labels, values):
+    fig, ax = plot.subplots()
+    ax.pie(values, labels=labels)
+    ax.axis('equal')
+    plot.show()
+
+if __name__ == '__main__':
+    labels = ['a', 'b', 'c']
+    values = [25,80,190]
+    generate_bar_chart(labels, values)
+    #generate_pie_chart(labels, values)
+
+
+~~~
+
+
+~~~py
 # main.py
 
 
 ~~~
-~~~sh
+~~~py
 # utils.py
 
 ~~~
 
+~~~py
+# read_csv.py
+
+
+~~~
+
+~~~py
+# charts.py
+
+
+~~~
+
+
 <!-- 
-* *en*.
-* *es*.
-
 
 * *en*.
 * *es*.
+
  -->
 
 
