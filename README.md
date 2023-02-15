@@ -13,6 +13,7 @@
 * *es*. Crear un directorio de trabajo para alojar la aplicación.
 
 ~~~sh
+# in cosole
 ❯ mkdir csv
 ~~~
 
@@ -21,6 +22,7 @@
 * *es*. Desde la **terminal**, cambie el directorio de trabajo actual a su proyecto local.
 
 ~~~sh
+# in cosole
 ❯ cd csv
 
 ❯ pwd
@@ -34,6 +36,7 @@ virtualenv
 * *es*. Crear un entorno virtual en el directorio de trabajo actual.
 
 ~~~sh
+# in cosole
 ❯ python3 -m venv env
 ~~~
 
@@ -42,6 +45,7 @@ virtualenv
 * *es*. Para activar el entorno virtual, ejecute el comando:
 
 ~~~sh
+# in cosole
 ❯ source env/bin/activate
 ~~~
 
@@ -50,6 +54,7 @@ virtualenv
 * *es*. Para probar el entorno virtual, verificaremos dónde las ubicaciones actuales de los ejecutables **python3** y **pip3**.
 
 ~~~sh
+# in cosole
 ❯ which python3
 ./csv/env/bin/python3
 
@@ -62,6 +67,7 @@ virtualenv
 * *es*. Instalar las dependencias requeridas para la ejecición de la aplicación.
 
 ~~~sh
+# in cosole
 ❯ pip3 install matplotlib
 ~~~
 
@@ -70,6 +76,7 @@ virtualenv
 * *es*. Para verificar las dependencias instaladas ejecute el siguiente comando:
 
 ~~~sh
+# in cosole
 ❯ pip3 freeze
 
 contourpy==1.0.7
@@ -90,6 +97,7 @@ six==1.16.0
 * *es*. Crear un archivo **requirements.txt** para futuras instalaciones.
 
 ~~~sh
+# in cosole
 ❯ touch requirements.txt
 
 ❯ pip3 freeze > requirements.txt
@@ -113,6 +121,7 @@ six==1.16.0
 * *es*. Crear un archivo **gitignore para que ignore ciertos archivos y no los rastree.
 
 ~~~py
+# in cosole
 ❯ mkdir gitignore
 
 # copy and paste plane text from https://www.toptal.com/developers/gitignore/ in gitignore file.
@@ -121,9 +130,33 @@ six==1.16.0
 ~~~
 
 
-1. Modularization
+10. Modularization
 * *en*. We modularized the application, with modules communicating from **main.py** to **utils.py** via an **import** statement in **main**. 
 * *es*. Modularisamos la aplicación, con módulos que se comunican desde **main.py** a **utils.py** a travéz de una declaración **import** en **main**.
+
+~~~py
+# in main.py file 
+import utils # importamos desde el módulos utils
+
+keys, values = utils.get_population()
+print(keys, values )
+
+~~~
+~~~py
+# in utils.py file
+def get_population():
+    keys = ['a', 'b', 'c']
+    values = [1,2,3]
+    return keys, values
+~~~
+~~~sh
+# in cosole
+❯ python3 main.py
+
+['a', 'b', 'c'] [1, 2, 3]
+~~~
+
+
 
 ~~~sh
 # main.py
