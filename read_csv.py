@@ -1,6 +1,5 @@
 import csv  # importamos la funcionalidad csv de python
 
-
 def read_csv(path):  # declaramos la función que leera el csv
     # mediante un bucle with abrimos la ruta (path) con permisos de lectura ('r') como la variable "csvfile"
     with open(path, 'r') as csvfile:
@@ -25,16 +24,9 @@ def read_csv(path):  # declaramos la función que leera el csv
             country_dict = {key: value for key, value in iter}
             data.append(country_dict) # agregamos a la variable data el resultado del dict-comprehension
 
-        return data 
-
-"""    
-            # imprimira una secuancia de numeros para separar visualmente las filas
-            print('....' * 5)
-            print(row)  # imprimiremos por consola las filas
-            """
-
+        return data # retornamos lo almacenado en "data"
 
 if __name__ == '__main__':  # control de ejcución de funciones y dualidad en el llamado
     # al ser llamada la funsión se ejecutara con la ruta del csv espesificada
     data = read_csv('./data.csv')
-    print(data[1])
+    print(data[0])

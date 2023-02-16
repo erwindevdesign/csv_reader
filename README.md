@@ -182,6 +182,8 @@ if __name__ == '__main__':
 * *es*. Modifique la función para leer un archivo **CSV** y transformar su contenido en un **diccionario**.
 
 ~~~py
+# in read_csv.py file
+
 import csv  
 
 def read_csv(path):  
@@ -210,7 +212,7 @@ if __name__ == '__main__':
 ~~~py
 # in charts.py file
 
-import matplotlib.pyplot as plot 
+import matplotlib.pyplot as plot # functionality from matplotlib
 
 def generate_bar_chart(labels, values):
     fig, ax = plot.subplots()
@@ -226,11 +228,68 @@ def generate_pie_chart(labels, values):
 if __name__ == '__main__':
     labels = ['a', 'b', 'c']
     values = [25,80,190]
-    generate_bar_chart(labels, values)
-    #generate_pie_chart(labels, values)
+    generate_bar_chart(labels, values) # function to bar chart
+    # generate_pie_chart(labels, values) # (uncoment) function to pie chart 
+~~~
+
+14. Refactorized **utils.py**.
+
+* *en*. Restructure the **get_population** function in utils.py to accept a dictionary from a **CSV** file.
+* *es*. Reestructure la dunción **get_population** en utils.py para aceptar un diccionario desde un archivo **CSV**.
+
+~~~py
+# before utils.py file
+
+def get_population(): 
+    keys = ['a', 'b', 'c'] # tester keys
+    values = [1,2,3] # tester values
+    return keys, values
+~~~
+~~~py
+# after utils.py file
+
+def get_population(country_dict): 
+    population_dict = { 
+        '2022': int(country_dict['2022 Population']),
+        '2020': int(country_dict['2020 Population']),
+        '2015': int(country_dict['2015 Population']),
+        '2010': int(country_dict['2010 Population']),
+        '2000': int(country_dict['2000 Population']),
+        '1990': int(country_dict['1990 Population']),
+        '1980': int(country_dict['1980 Population']),
+        '1970': int(country_dict['1970 Population'])
+    }
+
+    labels = population_dict.keys()
+    values = population_dict.values()
+    return labels, values
+
+def population_by_country(data, country):
+    # search for ['Country'] in the header row
+    result = list(filter(lambda item: item['Country'] == country, data))
+    return result
+~~~
+
+15. Reestructure main.py file
+
+* *en*.
+* *es*.
+
+~~~py
+# main.py
 
 
 ~~~
+
+
+
+
+
+
+
+
+
+
 
 
 ~~~py
