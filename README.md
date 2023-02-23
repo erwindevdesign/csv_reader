@@ -2,7 +2,7 @@
 
 :bar_chart:
 
-*en*. Creating an application for manipulating data tables in  **CSV** format.
+*en*. Creating an application for manipulating data tables in **CSV** format.
 
 *es*. Creación de una aplicación para manipular tablas de datos en formato **CSV**.
 
@@ -13,7 +13,7 @@
 * *es*. Crear un directorio de trabajo para alojar la aplicación.
 
 ~~~sh
-# in cosole
+# in console
 ❯ mkdir csv
 ~~~
 
@@ -22,7 +22,7 @@
 * *es*. Desde la **terminal**, cambie el directorio de trabajo actual a su proyecto local.
 
 ~~~sh
-# in cosole
+# in console
 ❯ cd csv
 
 ❯ pwd
@@ -36,7 +36,7 @@ virtualenv
 * *es*. Crear un entorno virtual en el directorio de trabajo actual.
 
 ~~~sh
-# in cosole
+# in console
 ❯ python3 -m venv env
 ~~~
 
@@ -45,7 +45,7 @@ virtualenv
 * *es*. Para activar el entorno virtual, ejecute el comando:
 
 ~~~sh
-# in cosole
+# in console
 ❯ source env/bin/activate
 ~~~
 
@@ -54,7 +54,7 @@ virtualenv
 * *es*. Para probar el entorno virtual, verificaremos dónde las ubicaciones actuales de los ejecutables **python3** y **pip3**.
 
 ~~~sh
-# in cosole
+# in console
 ❯ which python3
 ./csv/env/bin/python3
 
@@ -76,7 +76,7 @@ virtualenv
 * *es*. Para verificar las dependencias instaladas ejecute el siguiente comando:
 
 ~~~sh
-# in cosole
+# in console
 ❯ pip3 freeze
 
 contourpy==1.0.7
@@ -97,7 +97,7 @@ six==1.16.0
 * *es*. Crear un archivo **requirements.txt** para futuras instalaciones.
 
 ~~~sh
-# in cosole
+# in console
 ❯ touch requirements.txt
 
 ❯ pip3 freeze > requirements.txt
@@ -116,56 +116,86 @@ python-dateutil==2.8.2
 six==1.16.0
 ~~~
 
-9. Gitignore File.
+9. (**.gitignore**) File.
 * *en*. Create a **.gitignore** file to ignore specific files and prevent them from being tracked.
-* *es*. Crear un archivo **gitignore para ignorar archivos espesificos y evitar que sean rastreados.
+* *es*. Crear un archivo **.gitignore** para ignorar archivos espesificos y evitar que sean rastreados.
 
 ~~~py
-# in cosole
-❯ mkdir gitignore
+# in console
+❯ touch .gitignore
 
-# copy and paste plane text from https://www.toptal.com/developers/gitignore/ in gitignore file.
-# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,android,linux,python
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,android,linux,python
+# copy and paste plane text from:
+# https://www.toptal.com/developers/gitignore/ 
+# in .gitignore file.
+
+# Created by:
+# https://www.toptal.com/developers/gitignore/api/windows,macos,android,linux,python
+
+# Edit at:
+# https://www.toptal.com/developers/gitignore?templates=windows,macos,android,linux,python
 ~~~
-
 
 10. Modularization
 * *en*. We modularized the application by using import statements to allow communication between modules. For example, in **main.py** we imported functions from **utils.py**. 
 * *es*. Modularisamos la aplicación utilizando sentencias de importación para permitir la comunicación entre módulos. Por ejemplo, en **main.py** importamos funciones de **utils.py**.
 
 ~~~py
-# in main.py file 
-import utils # importamos desde el módulos utils
+# in utils.py file
 
-keys, values = utils.get_population()
-print(keys, values )
+def get_population(): # 01 we define the function (get_population).
+    
+    """ Function that receives keys and values in list format.
+    Args: 
+        None
 
+    Returns:
+        keys [list]: A list of keys for testing
+        values [list]: A list of values for testing 
+    """ # 02 we document the functionallity.    
+    
+    keys = ['a', 'b', 'c'] # 03 Define tester keys.
+    values = [1,2,3] # 04 Define tester values.
+    
+    return keys, values # 05 return tester values.
 ~~~
 ~~~py
-# in utils.py file
-def get_population():
-    keys = ['a', 'b', 'c']
-    values = [1,2,3]
-    return keys, values
+# in main.py file 
+
+import utils # 01 import the utils module in main. 
+
+keys, values = utils.get_population() # 02 call the function from utils.
+
+print(keys, values ) # 03 display the values returned by the function.
 ~~~
 ~~~sh
-# in cosole
-❯ python3 main.py
+# in console
 
-['a', 'b', 'c'] [1, 2, 3]
+❯ python3 main.py # 01 call the main file in console.
+
+['a', 'b', 'c'] [1, 2, 3] 
 ~~~
 
 11. Reader Function
 * *en*. Create a function in a module to read a **CSV** file.
 * *es*. Crear una función en un módulo para leer un archivo **CSV**.
 
+~~~sh
+# in the working directory, create a file to hold the read function.
+❯ touch read_csv.py 
+~~~
+
 ~~~py
 # in read_csv.py file
 
-import csv  
+import csv # 01 import csv functionality native from python
 
 def read_csv(path):  
+    """ 
+    Args:
+    path []
+
+    Returns:
+    """ # 02 we document the functionallity. 
     with open(path, 'r') as csvfile:  
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
@@ -270,16 +300,94 @@ def population_by_country(data, country):
     return result
 ~~~
 
-15. Reestructure main.py file
+15. Restructure main.py 
 
-* *en*.
-* *es*.
+* *en*. Restructure **main.py** to import the created modules.
+* *es*. Reestructura **main.py** para importar los módulos creados.
 
 ~~~py
-# main.py
+# before main.py file
 
+import utils  
 
+def run(): 
+    keys, values = utils.get_list()  
+    print(keys, values)
+    country = input('Type country item: ')
+    result = utils.population_by_country(data, country)
+    print(result)
+
+if __name__ == '__main__': 
+    run()
 ~~~
+~~~py
+# after main.py file
+
+import utils  
+import read_csv 
+import charts 
+
+def run(): 
+    # dictionary from read.csv.py
+    data = read_csv.read_csv('./data.csv') # 
+    
+    # -- Bar Chart -- 
+    country = input('Type country item: ') # tracked input
+    result = utils.population_by_country(data, country) 
+    if len(result) > 0:
+        country = result[0] 
+        labels, values = utils.get_population(country)  
+        charts.generate_bar_chart(labels, values)
+      
+if __name__ == '__main__': 
+    run()
+~~~
+
+
+16. Modify the **run()** function.
+
+* *en*. Modify the **run()** function in **main.py** to create a pie chart using information from a CSV file.
+* *es*. Modifique la función **run()** en **main.py** para crear un gráfico circular usando información de un archivo CSV.
+
+~~~py
+# before main.py file
+
+import utils  
+import read_csv 
+import charts 
+
+def run(): 
+    # dictionary from read.csv.py
+    data = read_csv.read_csv('./data.csv') # 
+    
+    # -- Bar Chart -- 
+    country = input('Type country item: ') # tracked input
+    result = utils.population_by_country(data, country) 
+    if len(result) > 0:
+        country = result[0] 
+        labels, values = utils.get_population(country)  
+        charts.generate_bar_chart(labels, values)
+      
+if __name__ == '__main__': 
+    run()
+~~~
+~~~py
+# after main.py file
+ 
+import read_csv 
+import charts 
+
+def run(): 
+    data = read_csv.read_csv('./data.csv') 
+    countries = list(map(lambda x: x['Country'], data))
+    percentages = list(map(lambda x: x['World Population Percentage'], data))
+    charts.generate_pie_chart(countries, percentages)
+    
+if __name__ == '__main__': 
+    run()
+~~~
+
+
 
 
 

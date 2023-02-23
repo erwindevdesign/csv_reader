@@ -216,6 +216,10 @@ ENV/
 env.bak/
 venv.bak/
 
+# tester
+
+tester/
+
 # Spyder project settings
 .spyderproject
 .spyproject

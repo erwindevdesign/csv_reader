@@ -1,3 +1,33 @@
+#!/usr/bin/env python3
+
+""" 
+Handling a CSV data table
+=========================
+Description: Create the application for manipulating data tables in CSV format.
+--------------------------------------------------------------------------------
+Author: Erwin Francisco Sanchez Vargas.
+---------------------------------------
+Email: erwindevdesign@infinitummail.com
+--------------------------------------- 
+Date: 23-02-2023 (ddmmaaaa).
+----------------------------
+
+Usage:
+------
+    $ python3 main.py --arg1=value1 --arg2=value2
+
+Options:
+--------
+
+
+Example:
+--------
+To run the app with default values:
+    $ python3 main.py
+
+"""
+
+
 import utils  # importamos desde el módulos utils
 import read_csv # importamos desde el modulo read_csv
 import charts # importamos desde el módulo charts
@@ -30,6 +60,6 @@ def run(): # creamor la funsión que ejecute el llamado a la fución con dualida
         charts.generate_bar_chart(labels, values)
         #charts.generate_pie_chart(labels, values)
 
- """
+    """
 if __name__ == '__main__': # control de ejcución de funciones y dualidad en el llamado
     run()
